@@ -1,0 +1,38 @@
+{% block body %}
+    <table class="table table-hover table-sm">
+      <tbody>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          {% for elements in s2 %}
+            <th> {{ elements }} </th>
+          {% endfor %}
+        </tr>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>0</th>
+          {% for elements in s2 %}
+            <th> {{ loop.index }} </th>
+          {% endfor %}
+        </tr>
+
+        {% for rows in matrix %}
+          <tr>
+            {% if loop.index0 > 0%}
+              <th>{{ s1[loop.index0 - 1]}}</th>
+            {% else %}
+              <th></th>
+            {% endif %}
+
+            <th>{{ loop.index0 }}</th>
+
+            {% for data in rows %}
+              <td scope="row">{{ data[0] }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}
