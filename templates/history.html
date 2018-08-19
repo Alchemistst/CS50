@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td><b>Symbol</b></td>
+                <td><b>Shares</b></td>
+                <td><b>Price</b></td>
+                <td><b>Transacted</b></td>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for items in history %}
+                {% if items["shares"] < 0 %}
+                <tr class="table-warning">
+                {% else %}
+                <tr class="table-success">
+                {% endif %}
+                    <td>
+                        {{ items["symbol"] }}
+                    </td>
+                    <td>
+                        {{ items["shares"] }}
+                    </td>
+                    <td>
+                        {{ items["price"]|usd() }}
+                    </td>
+                    <td>
+                        {{ items["date"] }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

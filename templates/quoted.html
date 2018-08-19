@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    <table class="table table-borderless table-sm w-25 mx-auto">
+        <tr>
+            <td rowspan="2" class="align-middle h2">{{ quoteResult["symbol"] }}</td>
+            <td>{{ quoteResult["name"] }}</td>
+        </tr>
+        <tr>
+            <td>{{ quoteResult["price"] }}</td>
+        </tr>
+    </table>
+{% endblock %}
