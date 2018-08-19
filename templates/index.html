@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td><b>Symbol</b></td>
+                <td><b>Name</b></td>
+                <td><b>Shares</b></td>
+                <td><b>Price</b></td>
+                <td><b>Total</b></td>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for items in portfolio %}
+                <tr>
+                    {% set quoteResult = items["symbol"]|lookup() %}
+                    <td>
+                        {{ items["symbol"] }}
+                    </td>
+                    <td>
+                        {{ quoteResult["name"] }}
+                    </td>
+                    <td>
+                        {{ items["shares"] }}
+                    </td>
+                    <td>
+                        {{ quoteResult["price"]|usd() }}
+                    </td>
+                    <td>
+                        {{ (quoteResult["price"] * items["shares"])|usd() }}
+                        {% if total.append(quoteResult["price"] * items["shares"]) %}{% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+
+            <tr>
+                <td colspan="4">CASH</td>
+                <td>{{ cash|usd() }}</td>
+            </tr>
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td colspan="4"></td>
+                <td>{{ (total|sum() + cash)|usd() }}</td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}
